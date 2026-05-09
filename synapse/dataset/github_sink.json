@@ -1,0 +1,22 @@
+{
+    "name": "github_sink",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "externaldatalake",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "Parquet",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "fileName": "sales.parquet",
+                "folderPath": "github",
+                "fileSystem": "raw"
+            },
+            "compressionCodec": "snappy"
+        },
+        "schema": []
+    },
+    "type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -79,7 +79,7 @@ The major objectives of this project were to:
 A centralized Azure Resource Group was created:
 
 ```text
-Managed-RG-AzureDataEngineering
+<resource-group-name>
 ```
 
 This was done to:
@@ -99,7 +99,7 @@ A storage account was created to serve as the project's Data Lake.
 
 | Setting | Value |
 |---|---|
-| Storage Account | azuredatastoragelagos |
+| Storage Account | <storage-account-name> |
 | Redundancy | LRS |
 | Hierarchical Namespace | Enabled |
 
@@ -122,8 +122,8 @@ An Azure Synapse Analytics workspace was created to orchestrate the complete dat
 
 | Setting | Value |
 |---|---|
-| Workspace Name | azuresynapselagos |
-| Default Data Lake | managedazurede |
+| Workspace Name | <synapse-workspace-name> |
+| Default Data Lake | <default-datalake-name> |
 
 ## Why Synapse Was Used
 
@@ -390,7 +390,7 @@ gold_source
 was created to connect Synapse SQL to:
 
 ```text
-https://azuredatastoragelagos.dfs.core.windows.net/gold/
+https://<storage-account-name>.dfs.core.windows.net/gold/
 ```
 
 ---

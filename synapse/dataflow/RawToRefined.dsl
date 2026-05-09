@@ -1,0 +1,54 @@
+source(output(
+		Item_Identifier as string,
+		Item_Weight as string,
+		Item_Fat_Content as string,
+		Item_Visibility as string,
+		Item_Type as string,
+		Item_MRP as string,
+		Outlet_Identifier as string,
+		Outlet_Establishment_Year as string,
+		Outlet_Size as string,
+		Outlet_Location_Type as string,
+		Outlet_Type as string,
+		Item_Outlet_Sales as string
+	),
+	allowSchemaDrift: true,
+	validateSchema: false,
+	ignoreNoFilesFound: false,
+	format: 'parquet') ~> rawsource
+rawsource derive(Outlet_Size = iif(isNull(Outlet_Size),'N/A',Outlet_Size)) ~> RemoveNulls
+RemoveNulls cast(output(
+		Item_MRP as decimal(10,0)
+	),
+	errors: true) ~> castMRP
+castMRP cast(output(
+		Item_Identifier as double
+	),
+	errors: true) ~> castWeight
+castWeight cast(output(
+		Outlet_Establishment_Year as integer
+	),
+	errors: true) ~> castYear
+castYear cast(output(
+		Item_Outlet_Sales as double
+	),
+	errors: true) ~> castSales
+castSales alterRow(insertIf(1==1)) ~> alterRow
+alterRow sink(allowSchemaDrift: true,
+	validateSchema: false,
+	format: 'delta',
+	fileSystem: 'refined',
+	folderPath: 'github/data',
+	mergeSchema: false,
+	autoCompact: false,
+	optimizedWrite: false,
+	vacuum: 0,
+	deletable: false,
+	insertable: true,
+	updateable: false,
+	upsertable: false,
+	umask: 0022,
+	preCommands: [],
+	postCommands: [],
+	skipDuplicateMapInputs: true,
+	skipDuplicateMapOutputs: true) ~> sinkRefined

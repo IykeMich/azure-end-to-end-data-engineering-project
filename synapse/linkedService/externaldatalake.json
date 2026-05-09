@@ -1,0 +1,16 @@
+{
+    "name": "externaldatalake",
+    "type": "Microsoft.Synapse/workspaces/linkedservices",
+    "properties": {
+        "description": "This is the linked service which is connecting synapse to the external datalake.",
+        "annotations": [],
+        "type": "AzureBlobFS",
+        "typeProperties": {
+            "url": "https://<storage-account-name>.dfs.core.windows.net/"
+        },
+        "connectVia": {
+            "referenceName": "AutoResolveIntegrationRuntime",
+            "type": "IntegrationRuntimeReference"
+        }
+    }
+}

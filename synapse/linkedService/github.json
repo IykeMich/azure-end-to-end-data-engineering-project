@@ -1,0 +1,18 @@
+{
+    "name": "github",
+    "type": "Microsoft.Synapse/workspaces/linkedservices",
+    "properties": {
+        "description": "This is the linked Service which connects synapse to github so as to facilitate data pulling from github into the datalake.",
+        "annotations": [],
+        "type": "HttpServer",
+        "typeProperties": {
+            "url": "https://raw.githubusercontent.com",
+            "enableServerCertificateValidation": true,
+            "authenticationType": "Anonymous"
+        },
+        "connectVia": {
+            "referenceName": "AutoResolveIntegrationRuntime",
+            "type": "IntegrationRuntimeReference"
+        }
+    }
+}
